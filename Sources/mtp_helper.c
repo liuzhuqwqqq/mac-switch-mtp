@@ -158,7 +158,7 @@ static void send_file(const char *id_text, const char *path) {
     file->filesize = (uint64_t)st.st_size;
     file->filetype = LIBMTP_FILETYPE_UNKNOWN;
     file->storage_id = (uint32_t)id;
-    file->parent_id = 0; /* MTP SendObjectInfo root, not GetObjectHandles' 0xffffffff. */
+    file->parent_id = UINT32_MAX; /* SendObjectInfo uses 0xffffffff for an explicit storage root. */
     last_tick = 0;
     message("sending", name);
     int rc = cancelled ? -1 : LIBMTP_Send_File_From_File_Descriptor(device, fd, file, progress, NULL);
