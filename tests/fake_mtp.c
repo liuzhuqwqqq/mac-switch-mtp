@@ -37,7 +37,7 @@ void LIBMTP_destroy_file_t(LIBMTP_file_t *f) { free(f->filename); free(f); }
 int LIBMTP_Send_File_From_File_Descriptor(LIBMTP_mtpdevice_t *d, int fd, LIBMTP_file_t *f, LIBMTP_progressfunc_t cb, const void *data) {
     (void)d;
     struct stat st; if (fstat(fd, &st) || (uint64_t)st.st_size != f->filesize ||
-        f->parent_id != 0 || f->storage_id != 327681 || !f->filename || f->filetype != LIBMTP_FILETYPE_UNKNOWN) abort();
+        f->parent_id != UINT32_MAX || f->storage_id != 327681 || !f->filename || f->filetype != LIBMTP_FILETYPE_UNKNOWN) abort();
     if (mode("sendfail")) return -1;
     if (mode("cancel")) raise(SIGUSR1);
     if (cb(0, f->filesize, data)) return -1;
