@@ -1,24 +1,16 @@
-# v0.1.0 · 首个试用版
+# v0.1.1 · 修复 DBI 开始传输失败
 
-macOS 上的 Switch DBI MTP 安装助手，支持 USB 传输、批量队列和实时进度。
+修复点击开始后 DBI 返回 `PTP Invalid Object Handle (2009)` 的问题：发送文件时明确指定 SD 安装入口的根目录。此前 v0.1.0 可能可以连接，但在实际传输前被 DBI 拒绝。
 
-- 中文原生界面，支持拖入 NSP / NSZ / XCI / XCZ 文件。
-- 识别 DBI 的 SD Card install 入口，按队列依次发送。
-- 显示传输进度、速度、取消与诊断日志。
-- 应用内置 libmtp / libusb，无需用户另装 Homebrew。
+- 已完成一个 2.96 GB XCZ 文件的真实 USB 传输，用户确认 DBI 安装成功、没有错误。
+- 更新模拟设备校验，防止根目录参数回归；10 组模拟 MTP 测试通过，不调用真实 USB。
+- 保持 Apple Silicon、macOS 13.0+ 部署目标；macOS 13–26 尚未实机验证，暂无 Intel 预编译包。
+- 传输完成与安装成功分别判断，安装结果请以 Switch 上的 DBI 提示为准。
 
-**下载版本：Apple Silicon（M 系列）Mac，部署目标 macOS 13.0+，包括 macOS 26。**
-
-应用、libmtp 和 libusb 均从源码按 macOS 13.0 重新编译。已在 macOS 27.3 验证；macOS 13–26 仍需实机测试，不提供 Intel 预编译包。
-
-Switch 端需已经可以运行 DBI，并进入 **Run MTP responder**。USB-C to USB-C 数据线已完成连接验证。
-
-已通过本机编译、签名检查、10 组模拟协议测试和真实 DBI 连接检查。完整文件传输、实际游戏安装、持续速度及真实超过 4 GB 的传输尚未验证。安装结果请以 Switch 上的 DBI 为准。
-
-应用为本地临时签名，未经过 Apple 公证。仅用于你有权使用的安装文件。
+应用内置 libmtp / libusb，运行无需另装 Homebrew。本地临时签名，未经过 Apple 公证。仅用于你有权使用的安装文件。
 
 下载文件：
 
-- `mac-switch-mtp-v0.1.0-AppleSilicon.zip`：可运行应用。
-- `mac-switch-mtp-v0.1.0-ThirdParty-Sources.zip`：内置第三方库的对应源码、许可与构建配方。
+- `mac-switch-mtp-v0.1.1-AppleSilicon.zip`：可运行应用。
+- `mac-switch-mtp-v0.1.1-ThirdParty-Sources.zip`：内置第三方库的对应源码、许可与构建配方。
 - `SHA256SUMS.txt`：上述文件的校验值。

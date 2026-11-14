@@ -4,11 +4,13 @@
 
 中文原生界面，将本地 NSP / NSZ / XCI / XCZ 文件传入 DBI 的 **SD Card install** 入口，由 Switch 上的 DBI 边接收边安装。
 
+v0.1.1 修复 DBI 在开始传输时报 `Invalid Object Handle` 的问题；旧版用户请重新下载应用。
+
 ## 下载与使用
 
 在 [Releases](https://github.com/liuzhuqwqqq/mac-switch-mtp/releases) 下载应用压缩包，解压后将 **Switch MTP.app** 拖入「应用程序」。已内置 libmtp / libusb，运行无需另外安装 Homebrew。
 
-当前预编译版本：**Apple Silicon（M 系列），部署目标 macOS 13.0 及以上，包括 macOS 26**。应用和两个内置动态库均从源码按该目标重新编译。已在 macOS 27.3 检查启动和真实 DBI 连接；**尚未在 macOS 13–26 实机验证，也未提供 Intel 预编译包**。应用为本地临时签名，未经过 Apple 公证。
+当前预编译版本：**Apple Silicon（M 系列），部署目标 macOS 13.0 及以上，包括 macOS 26**。应用和两个内置动态库均从源码按该目标重新编译。已在 macOS 27.3 检查启动、真实 DBI 连接和一个 2.96 GB XCZ 文件的完整传输；用户确认 DBI 安装成功；**尚未在 macOS 13–26 实机验证，也未提供 Intel 预编译包**。应用为本地临时签名，未经过 Apple 公证。
 
 1. Switch 打开 DBI → **Run MTP responder**，保持该界面。
 2. 用支持数据传输的 USB 线直连 Mac，**C to C 数据线可以使用**。
@@ -67,7 +69,7 @@ python3 -m unittest discover -s tests -v
 
 10 组模拟 MTP 测试覆盖中文文件名、64 位大文件元信息与进度、目标存储限制、取消、错误断开和连续传输。测试不调用真实 USB。
 
-已在真实 Switch 上识别到 **DBI MTP** 连接和 **SD Card install** 入口。**真实文件安装、USB 速度及实际超过 4 GB 的完整传输仍未验证**；大文件测试使用稀疏文件与模拟回调。详细记录见 [VALIDATION.md](VALIDATION.md)。
+已在真实 Switch 上识别到 **DBI MTP** 连接和 **SD Card install** 入口。已通过一个 2.96 GB XCZ 文件的真实 USB 传输，并由用户确认 DBI 安装成功。持续速度和真实超过 4 GB 的完整传输仍未验证；大文件测试使用稀疏文件与模拟回调。详细记录见 [VALIDATION.md](VALIDATION.md)。
 
 ## 源码与许可
 
